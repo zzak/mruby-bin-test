@@ -3,7 +3,8 @@
 #include <mruby/irep.h>
 #include <mruby/variable.h>
 
-extern const uint8_t mrbtest_assert_irep[];
+//extern const uint8_t mrbtest_assert_irep[];
+extern const uint8_t gem_mrblib_irep_mruby_test[];
 
 void mrbgemtest_init(mrb_state* mrb);
 void mrb_init_test_driver(mrb_state* mrb, mrb_bool verbose);
@@ -14,7 +15,8 @@ mrb_init_mrbtest(mrb_state *mrb)
 {
   mrb_state *core_test;
 
-  mrb_load_irep(mrb, mrbtest_assert_irep);
+  //mrb_load_irep(mrb, mrbtest_assert_irep);
+  mrb_load_irep(mrb, gem_mrblib_irep_mruby_test);
 
   core_test = mrb_open_core(mrb_default_allocf, NULL);
   if (core_test == NULL) {
@@ -22,7 +24,8 @@ mrb_init_mrbtest(mrb_state *mrb)
     exit(EXIT_FAILURE);
   }
   mrb_init_test_driver(core_test, mrb_test(mrb_gv_get(mrb, mrb_intern_lit(mrb, "$mrbtest_verbose"))));
-  mrb_load_irep(core_test, mrbtest_assert_irep);
+  //mrb_load_irep(core_test, mrbtest_assert_irep);
+  mrb_load_irep(core_test, gem_mrblib_irep_mruby_test);
   mrb_t_pass_result(mrb, core_test);
 
 #ifndef DISABLE_GEMS
